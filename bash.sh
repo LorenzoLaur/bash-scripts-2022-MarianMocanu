@@ -14,9 +14,6 @@ if [ $1 = "help" ]; then
     echo -e "   create-user - creates a user"
 fi
 
-
-
-
 if [ $1 = "system-update"]; then
     echo -e "updating system";
     sudo apt-get update && sudo-apt get upgrade -y
