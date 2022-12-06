@@ -11,7 +11,7 @@ function SystemUsage(){
     DISK: $disk"
 }
 # Checking if something has been passed on, if it's not then it will run the if statement 
-if [ $# -eq 0]; then
+if [ $# -eq 0 ]; then
     echo "Usage: $0 [command]"
     echo "Commands:"
     echo "  help - print this help message"
@@ -19,7 +19,7 @@ if [ $# -eq 0]; then
 fi
 
 # Checking if something has been passed on, if "help" has been passed it will run the if statement 
-if [ $1 = "help"]; then
+if [ $1 = "help" ]; then
     echo -e "   add-user - create a user"
     echo -e "   firewall - add or remove a firewall port"
     echo -e "   update-system - update system"
@@ -29,40 +29,34 @@ if [ $1 = "help"]; then
 fi
 
 # Checking if something has been passed on, if "system-update" has been passed it will run the if statement
-if [ $1 = "system-update"]; then
+if [ $1 = "system-update" ]; then
     echo -e "updating system"
     sudo apt-get update && sudo-apt get upgrade -y
     wait
     echo -e "system updated."
     exit 0
-fi
+fi 
 
 # Checking if something has been passed on, if "firewall" has been passed it will run the if statement
 if [ $1 = "firewall"]; then
     # Checking if 2nd var is passed to firewall, if not echo error
     if [ -z "$2" ]; then
-        echo -e "Must specify if you want to [add] or [remove] a port"
-        exit 0
+        echo -e "You must include an add or remove"
+        exit 1
     fi
-
-    # Checking if 3rd var is passed to firewall, if not echo error
     if [ -z "$3" ]; then
-        echo -e "Must include a port"
-        exit 0
+        echo -e "You must include an port"
+        exit 1
     fi
 
-    if [ $2 = "add"]; then
+    if [ $2 = "add" ]; then
         sudo ufw allow $3
-        wait
         echo -e "Port $3 added to firewall"
-        exit 0
     fi
 
-    if [ $2 = "remove"]; then
+    if [ $2 = "remove" ]; then
         sudo ufw delete allow $3
-        wait
-        echo -e "Port $3 removed from firwall"
-        exit 0
+        echo -e "Port $3 removed from firewall"
     fi
 fi
 
