@@ -42,3 +42,14 @@ if [ $1 = "firewall" ]; then
         echo -e "Port $3 removed from firwall";
     fi
 fi
+
+if [ $1 = "system-stats"]; then
+    cpu=$(top -bn1 | grep load | awk '{printf "%.2f%%\t\t", $(NF-2)');
+    ram=$(free -m | awk '{printf "%.2f%%\t\t", $3*100/$2}' );
+    disk=$(df -h | awk '$NF=="/"{printf "%s\t\t", $5}');
+
+    echo -e "VM Useage
+    CPU: $cpu
+    RAM: $ram
+    DISK: $disk";
+fi
