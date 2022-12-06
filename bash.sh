@@ -1,3 +1,5 @@
+# Marian Mocanu 105277
+
 if [ $# -eq 0  ]; then
     echo -e "Usage $0 [command]";
     echo -e "Commands:";
