@@ -27,6 +27,7 @@ if [ $1 = "help" ]; then
     echo -e "   create-user - creates a user"
     exit 0
 fi
+
 # Checking if something has been passed on, if "system-update" has been passed it will run the if statement
 if [ $1 = "system-update"]; then
     echo -e "updating system"
@@ -35,16 +36,19 @@ if [ $1 = "system-update"]; then
     echo -e "system updated."
     exit 0
 fi
+
 # Checking if something has been passed on, if "firewall" has been passed it will run the if statement
 if [ $1 = "firewall" ]; then
     # Checking if 2nd var is passed to firewall, if not echo error
     if [ -z "$2" ]; then
         echo -e "Must specify if you want to [add] or [remove] a port"
+        exit 0
     fi
 
     # Checking if 3rd var is passed to firewall, if not echo error
     if [ -z "$3" ]; then
         echo -e "Must include a port"
+        exit 0
     fi
 
     if [ $2 = "add"]; then
