@@ -1,9 +1,9 @@
 # Marian Mocanu 1025277
 # Declaring a function to check the system usage
 function SystemUsage(){
-    cpu=$(top -bn1 | grep load | awk '{printf "%.2f%%\t\t", $(NF-2)');
-    ram=$(free -m | awk '{printf "%.2f%%\t\t", $3*100/$2}' );
-    disk=$(df -h | awk '$NF=="/"{printf "%s\t\t", $5}');
+    cpu=$(top -bn1 | grep load | awk '{printf "%.2f%%\t\t", $(NF-2)}')
+    ram=$(free -m | awk 'NR==2{printf "%.2f%%\t\t", $3*100/$2 }')
+    disk=$(df -h | awk '$NF=="/"{printf "%s\t\t", $5}')
 
      echo -e "VM Useage
     CPU: $cpu
