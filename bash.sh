@@ -1,11 +1,11 @@
 # Marian Mocanu 1025277
-
+# Checking if something has been passed on, if it's not then it will run the if statement 
 if [ $# -eq 0  ]; then
     echo -e "Usage $0 [command]";
     echo -e "Commands:";
     echo -e "  help - gives list of commands you can run";
 fi
-
+# Checking if something has been passed on, if "help" has been passed it will run the if statement 
 if [ $1 = "help" ]; then
     echo -e "   add-user - create a user";
     echo -e "   firewall - add or remove a firewall port"; 
@@ -13,14 +13,14 @@ if [ $1 = "help" ]; then
     echo -e "   setup-wp - installs apts neeeded for wp";
     echo -e "   create-user - creates a user"
 fi
-
+# Checking if something has been passed on, if "system-update" has been passed it will run the if statement
 if [ $1 = "system-update"]; then
     echo -e "updating system";
     sudo apt-get update && sudo-apt get upgrade -y
     wait
     echo -e "system updated.";
 fi
-
+# Checking if something has been passed on, if "firewall" has been passed it will run the if statement
 if [ $1 = "firewall" ]; then
     # checking if 2nd var is passed to firewall, if not echo error
     if [ -z "$2" ]; then
@@ -44,7 +44,7 @@ if [ $1 = "firewall" ]; then
         echo -e "Port $3 removed from firwall";
     fi
 fi
-
+# Checking if something has been passed on, if "system-stats" has been passed it will run the if statement
 if [ $1 = "system-stats"]; then
     cpu=$(top -bn1 | grep load | awk '{printf "%.2f%%\t\t", $(NF-2)');
     ram=$(free -m | awk '{printf "%.2f%%\t\t", $3*100/$2}' );
@@ -55,7 +55,7 @@ if [ $1 = "system-stats"]; then
     RAM: $ram
     DISK: $disk";
 fi
-
+# Checking if something has been passed on, if "setup-wp" has been passed it will run the if statement
 if [ $1 = "setup-wp" ]; then
     # Installing Nginx
     sudo-apt install nginx -y
@@ -130,15 +130,19 @@ if [ $1 = "setup-wp" ]; then
     # Checking that the file created is created correctly
     nginx -t
     wait
+    # Path for the next step
     cd /etc/nginx/sites-enabled
+    # Using the path above activating the server block
     wait
     ln -s ../sites-available/wordpress.conf
     wait 
+    # Restarting Nginx
     systemctl reaload nginx
     wait
 fi
-
+# Checking if something has been passed on, if "create-user" has been passed it will run the if statement
 if [ $1 = "create-user" ]; then
-    # add create user command
-    
+    echo -e "** MAKE SURE TO KEEP A RECORD OF THE USERS CREDENTIALS**";
+    # Creating a new user 
+    sudo adduser newuser
 fi
