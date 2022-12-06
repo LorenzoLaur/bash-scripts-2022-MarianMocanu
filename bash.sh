@@ -152,9 +152,9 @@ fi
 # Checking if something has been passed on, if "create-user" has been passed it will run the if statement
 if [ $1 = "create-user" ]; then
     echo -e "what do you want the user to be called?"
-    read -p 'Username' username
+    read -p 'Username: ' username
     echo -e "What should the password for $username be?"
-    read -sp 'Password:' password
+    read -sp 'Password: (this wont show anything but you are typing)' password
 
     # Creating a new user 
     sudo adduser -p password username
