@@ -151,9 +151,18 @@ if [ $1 = "setup-wp" ]; then
 fi
 # Checking if something has been passed on, if "create-user" has been passed it will run the if statement
 if [ $1 = "create-user" ]; then
-    echo -e "** MAKE SURE TO KEEP A RECORD OF THE USERS CREDENTIALS**"
+    echo -e "what do you want the user to be called?"
+    read -p 'Username' username
+    echo -e "What should the password for $username be?"
+    read -sp 'Password:' password
+
     # Creating a new user 
-    sudo adduser newuser
+    sudo adduser -p password username
+
+    echo -e "Please make sure to note these down!
+    Username: $username
+    Password $password
+    "
 
     exit 0 
 fi
