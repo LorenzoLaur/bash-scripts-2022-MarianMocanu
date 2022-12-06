@@ -10,3 +10,35 @@ if [ $1 = "help" ]; then
     echo -e "  update-system - update system";
     echo -e "   setup-wp - installs apts neeeded for wp";
 fi
+
+
+if [ $1 = "system-update"]; then
+    echo -e "updating system";
+    sudo apt-get update && sudo-apt get upgrade -y
+    wait
+    echo -e "system updated.";
+fi
+
+if [ $1 = "firewall" ]; then
+    # checking if 2nd var is passed to firewall, if not echo error
+    if [ -z "$2" ]; then
+        echo -e "Must specify if you want to [add] or [remove] a port";
+    fi
+
+    # checking if 3rd var is passed to firewall, if not echo error
+    if [ -z "$3" ]; then
+        echo -e "Must include a port";
+    fi
+
+    if [ $2 = "add"]; then
+        sudo ufw allow $3
+        wait
+        echo -e "Port $3 added to firewall";
+    fi
+
+    if [ $2 = "remove" ]; then
+        sudo ufw delete allow $3
+        wait
+        echo -e "Port $3 removed from firwall";
+    fi
+fi
