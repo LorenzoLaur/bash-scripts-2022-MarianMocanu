@@ -8,52 +8,52 @@ function SystemUsage(){
      echo -e "VM Useage
     CPU: $cpu
     RAM: $ram
-    DISK: $disk";
+    DISK: $disk"
 }
 # Checking if something has been passed on, if it's not then it will run the if statement 
 if [ $# -eq 0  ]; then
-    echo -e "Usage $0 [command]";
-    echo -e "Commands:";
-    echo -e "  help - gives list of commands you can run";
+    echo -e "Usage $0 [command]"
+    echo -e "Commands:"
+    echo -e "  help - gives list of commands you can run"
 fi
 
 # Checking if something has been passed on, if "help" has been passed it will run the if statement 
 if [ $1 = "help" ]; then
-    echo -e "   add-user - create a user";
-    echo -e "   firewall - add or remove a firewall port"; 
-    echo -e "   update-system - update system";
-    echo -e "   setup-wp - installs apts neeeded for wp";
-    echo -e "   create-user - creates a user";
+    echo -e "   add-user - create a user"
+    echo -e "   firewall - add or remove a firewall port"
+    echo -e "   update-system - update system"
+    echo -e "   setup-wp - installs apts neeeded for wp"
+    echo -e "   create-user - creates a user"
 fi
 # Checking if something has been passed on, if "system-update" has been passed it will run the if statement
 if [ $1 = "system-update"]; then
-    echo -e "updating system";
+    echo -e "updating system"
     sudo apt-get update && sudo-apt get upgrade -y
     wait
-    echo -e "system updated.";
+    echo -e "system updated."
 fi
 # Checking if something has been passed on, if "firewall" has been passed it will run the if statement
 if [ $1 = "firewall" ]; then
     # Checking if 2nd var is passed to firewall, if not echo error
     if [ -z "$2" ]; then
-        echo -e "Must specify if you want to [add] or [remove] a port";
+        echo -e "Must specify if you want to [add] or [remove] a port"
     fi
 
     # Checking if 3rd var is passed to firewall, if not echo error
     if [ -z "$3" ]; then
-        echo -e "Must include a port";
+        echo -e "Must include a port"
     fi
 
     if [ $2 = "add"]; then
         sudo ufw allow $3
         wait
-        echo -e "Port $3 added to firewall";
+        echo -e "Port $3 added to firewall"
     fi
 
     if [ $2 = "remove" ]; then
         sudo ufw delete allow $3
         wait
-        echo -e "Port $3 removed from firwall";
+        echo -e "Port $3 removed from firwall"
     fi
 fi
 # Checking if something has been passed on, if "system-stats" has been passed it will run the if statement and call the function declared at the beggining
@@ -147,7 +147,7 @@ if [ $1 = "setup-wp" ]; then
 fi
 # Checking if something has been passed on, if "create-user" has been passed it will run the if statement
 if [ $1 = "create-user" ]; then
-    echo -e "** MAKE SURE TO KEEP A RECORD OF THE USERS CREDENTIALS**";
+    echo -e "** MAKE SURE TO KEEP A RECORD OF THE USERS CREDENTIALS**"
     # Creating a new user 
     sudo adduser newuser
 fi
