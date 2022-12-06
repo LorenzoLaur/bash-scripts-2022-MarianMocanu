@@ -5,10 +5,11 @@ if [ $# -eq 0  ]; then
 fi
 
 if [ $1 = "help" ]; then
-    echo -e "  add-user - create a user";
-    echo -e "  firewall - add or remove a firewall port"; 
-    echo -e "  update-system - update system";
+    echo -e "   add-user - create a user";
+    echo -e "   firewall - add or remove a firewall port"; 
+    echo -e "   update-system - update system";
     echo -e "   setup-wp - installs apts neeeded for wp";
+    echo -e "   create-user - creates a user"
 fi
 
 
@@ -70,4 +71,8 @@ if [ $1 = "setup-wp" ]; then
     mysql -u root -p
 
     # finish this off for installing wp and setup
+fi
+
+if [ $1 = "create-user" ]; then
+    # add create user command
 fi
