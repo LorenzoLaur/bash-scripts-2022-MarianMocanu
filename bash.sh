@@ -99,6 +99,8 @@ if [ $1 = "setup-wp" ]; then
     # The path where the system will write in
     cd /etc/nginx/sites-available
     wait
+    rm -R deafault
+    wait
     # Telling the system to write the following in the file with the path above
     echo "server {
             listen 80 default_server;
