@@ -71,16 +71,16 @@ fi
 # Checking if something has been passed on, if "setup-wp" has been passed it will run the if statement
 if [ $1 = "setup-wp" ]; then
     # Installing Nginx
-    sudo-apt install nginx -y
+    sudo apt-get install nginx -y
     wait
     # Installing MariaDB
-    sudo-apt install mariadb -y
+    sudo apt-get install mariadb -y
     wait
     # Enablingh MaridDB
     systemctl enable mariadb.service -y
     wait
     # Installing PHP 
-    sudo-apt install php7 php7-cli php7-fpm php7-mysql php7-json php7-opcache php7-mbstring php7-xml php7-gd php7-curl -y
+    sudo apt-get install php7 php7-cli php7-fpm php7-mysql php7-json php7-opcache php7-mbstring php7-xml php7-gd php7-curl -y
     wait
     echo -e "** MAKE NOT OF YOUR ROOT PASSWORD ON THIS NEXT PART! **"
     wait
