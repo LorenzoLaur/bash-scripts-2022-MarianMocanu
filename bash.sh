@@ -11,10 +11,11 @@ function SystemUsage(){
     DISK: $disk"
 }
 # Checking if something has been passed on, if it's not then it will run the if statement 
-if [ $# -eq 0  ]; then
-    echo -e "Usage $0 [command]"
-    echo -e "Commands:"
-    echo -e "  help - gives list of commands you can run"
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 [command]"
+    echo "Commands:"
+    echo "  help - print this help message"
+    exit 0
 fi
 
 # Checking if something has been passed on, if "help" has been passed it will run the if statement 
@@ -24,6 +25,7 @@ if [ $1 = "help" ]; then
     echo -e "   update-system - update system"
     echo -e "   setup-wp - installs apts neeeded for wp"
     echo -e "   create-user - creates a user"
+    exit 0
 fi
 # Checking if something has been passed on, if "system-update" has been passed it will run the if statement
 if [ $1 = "system-update"]; then
@@ -31,6 +33,7 @@ if [ $1 = "system-update"]; then
     sudo apt-get update && sudo-apt get upgrade -y
     wait
     echo -e "system updated."
+    exit 0
 fi
 # Checking if something has been passed on, if "firewall" has been passed it will run the if statement
 if [ $1 = "firewall" ]; then
@@ -48,17 +51,21 @@ if [ $1 = "firewall" ]; then
         sudo ufw allow $3
         wait
         echo -e "Port $3 added to firewall"
+        exit 0
     fi
 
     if [ $2 = "remove" ]; then
         sudo ufw delete allow $3
         wait
         echo -e "Port $3 removed from firwall"
+        exit 0
     fi
 fi
 # Checking if something has been passed on, if "system-stats" has been passed it will run the if statement and call the function declared at the beggining
 if [ $1 = "system-stats"]; then
     SystemUsage
+    wait 
+    exit 0
 fi
 # Checking if something has been passed on, if "setup-wp" has been passed it will run the if statement
 if [ $1 = "setup-wp" ]; then
@@ -144,10 +151,14 @@ if [ $1 = "setup-wp" ]; then
     # Restarting Nginx
     systemctl reaload nginx
     wait
+    echo "All done"
+    exit 0
 fi
 # Checking if something has been passed on, if "create-user" has been passed it will run the if statement
 if [ $1 = "create-user" ]; then
     echo -e "** MAKE SURE TO KEEP A RECORD OF THE USERS CREDENTIALS**"
     # Creating a new user 
     sudo adduser newuser
+
+    exit 0 
 fi
