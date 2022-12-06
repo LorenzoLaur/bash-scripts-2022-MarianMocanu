@@ -31,7 +31,7 @@ fi
 # Checking if something has been passed on, if "system-update" has been passed it will run the if statement
 if [ $1 = "system-update" ]; then
     echo -e "updating system"
-    sudo apt-get update && sudo-apt get upgrade -y
+    sudo apt-get update && sudo apt-get upgrade -y
     wait
     echo -e "system updated."
     exit 0
@@ -52,11 +52,13 @@ if [ $1 = "firewall" ]; then
     if [ $2 = "add" ]; then
         sudo ufw allow $3
         echo -e "Port $3 added to firewall"
+        exit 0
     fi
 
     if [ $2 = "remove" ]; then
         sudo ufw delete allow $3
         echo -e "Port $3 removed from firewall"
+        exit 0
     fi
 fi
 
@@ -98,45 +100,39 @@ if [ $1 = "setup-wp" ]; then
     cd /etc/nginx/sites-available
     wait
     # Telling the system to write the following in the file with the path above
-    cat wordpress.conf
-    server {
-                listen 80;
-                root /var/www/html/wordpress/public_html;
-                index index.php index.html;
-                server_name SUBDOMAIN.DOMAIN.TLD;
+    echo "server {
+            listen 80 default_server;
+            listen [::]:80 default_server;
 
-	        access_log /var/log/nginx/SUBDOMAIN.access.log;
-    	        error_log /var/log/nginx/SUBDOMAIN.error.log;
+            root /var/www/html;
+            index index.php index.html index.htm index.nginx-debian.html;
 
-                location / {
-                            try_files $uri $uri/ =404;
-                }
+            server_name $domain www.$domain;
 
-                location ~ \.php$ {
-                            include snippets/fastcgi-php.conf;
-                            fastcgi_pass unix:/run/php/php7.2-fpm.sock;
-                }
-            
-                location ~ /\.ht {
-                            deny all;
-                }
+            location / {
+                try_files \$uri \$uri/ =404;
+            }
 
-                location = /favicon.ico {
-                            log_not_found off;
-                            access_log off;
-                }
+            location = /robots.txt {
+                    allow all;
+                    log_not_found off;
+                    access_log off;
+            }
 
-                location = /robots.txt {
-                            allow all;
-                            log_not_found off;
-                            access_log off;
-                }
-       
-                location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
-                            expires max;
-                            log_not_found off;
-                }
-    }
+            location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+            }
+
+            location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+                    expires max;
+                    log_not_found off;
+            }
+
+            location ~ /\.ht {
+                deny all;
+            }
+        }" > /etc/nginx/sites-available/wordpress.conf
     wait
     # Checking that the file created is created correctly
     nginx -t
@@ -148,7 +144,7 @@ if [ $1 = "setup-wp" ]; then
     ln -s ../sites-available/wordpress.conf
     wait 
     # Restarting Nginx
-    systemctl reaload nginx
+    systemctl reload nginx
     wait
     echo "All done"
     exit 0
