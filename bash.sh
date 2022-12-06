@@ -57,21 +57,88 @@ if [ $1 = "system-stats"]; then
 fi
 
 if [ $1 = "setup-wp" ]; then
-    # add the sudo-get get's for needed apps for wp
+    # Installing Nginx
     sudo-apt install nginx -y
     wait
+    # Installing MariaDB
     sudo-apt install mariadb -y
     wait
+    # Enablingh MaridDB
     systemctl enable mariadb.service -y
     wait
+    # Installing PHP 
+    sudo-apt install php7 php7-cli php7-fpm php7-mysql php7-json php7-opcache php7-mbstring php7-xml php7-gd php7-curl -y
+    wait
     echo -e "** MAKE NOT OF YOUR ROOT PASSWORD ON THIS NEXT PART! **"
+    wait
+    # Installing MySQL
     mysql_secure_installation
     wait
+    # Logging in MySQL with the username "-u" and password "-p"
     mysql -u root -p
+    wait
+    # Creating a directory "-p"
+    mkdir -p /var/www/html/wordpress/public_html
+    wait
+    # The path where to create the directory
+    cd /var/www/html/wordpress/public_html
+    wait
+    # The path where the system will write in
+    cd /etc/nginx/sites-available
+    wait
+    # Telling the system to write the following in the file with the path above
+    cat wordpress.conf
+    server {
+                listen 80;
+                root /var/www/html/wordpress/public_html;
+                index index.php index.html;
+                server_name SUBDOMAIN.DOMAIN.TLD;
 
-    # finish this off for installing wp and setup
+	        access_log /var/log/nginx/SUBDOMAIN.access.log;
+    	        error_log /var/log/nginx/SUBDOMAIN.error.log;
+
+                location / {
+                            try_files $uri $uri/ =404;
+                }
+
+                location ~ \.php$ {
+                            include snippets/fastcgi-php.conf;
+                            fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+                }
+            
+                location ~ /\.ht {
+                            deny all;
+                }
+
+                location = /favicon.ico {
+                            log_not_found off;
+                            access_log off;
+                }
+
+                location = /robots.txt {
+                            allow all;
+                            log_not_found off;
+                            access_log off;
+                }
+       
+                location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+                            expires max;
+                            log_not_found off;
+                }
+    }
+    wait
+    # Checking that the file created is created correctly
+    nginx -t
+    wait
+    cd /etc/nginx/sites-enabled
+    wait
+    ln -s ../sites-available/wordpress.conf
+    wait 
+    systemctl reaload nginx
+    wait
 fi
 
 if [ $1 = "create-user" ]; then
     # add create user command
+    
 fi
