@@ -38,7 +38,7 @@ if [ $1 = "system-update" ]; then
 fi 
 
 # Checking if something has been passed on, if "firewall" has been passed it will run the if statement
-if [ $1 = "firewall"]; then
+if [ $1 = "firewall" ]; then
     # Checking if 2nd var is passed to firewall, if not echo error
     if [ -z "$2" ]; then
         echo -e "You must include an add or remove"
@@ -61,13 +61,13 @@ if [ $1 = "firewall"]; then
 fi
 
 # Checking if something has been passed on, if "system-stats" has been passed it will run the if statement and call the function declared at the beggining
-if [ $1 = "system-stats"]; then
+if [ $1 = "system-stats" ]; then
     SystemUsage
     wait 
     exit 0
 fi
 # Checking if something has been passed on, if "setup-wp" has been passed it will run the if statement
-if [ $1 = "setup-wp"]; then
+if [ $1 = "setup-wp" ]; then
     # Installing Nginx
     sudo-apt install nginx -y
     wait
@@ -154,7 +154,7 @@ if [ $1 = "setup-wp"]; then
     exit 0
 fi
 # Checking if something has been passed on, if "create-user" has been passed it will run the if statement
-if [ $1 = "create-user"]; then
+if [ $1 = "create-user" ]; then
     echo -e "** MAKE SURE TO KEEP A RECORD OF THE USERS CREDENTIALS**"
     # Creating a new user 
     sudo adduser newuser
