@@ -53,3 +53,19 @@ if [ $1 = "system-stats"]; then
     RAM: $ram
     DISK: $disk";
 fi
+
+if [ $1 = "setup-wp" ]; then
+    # add the sudo-get get's for needed apps for wp
+    sudo-apt install nginx -y
+    wait
+    sudo-apt install mariadb -y
+    wait
+    systemctl enable mariadb.service -y
+    wait
+    echo -e "** MAKE NOT OF YOUR ROOT PASSWORD ON THIS NEXT PART! **"
+    mysql_secure_installation
+    wait
+    mysql -u root -p
+
+    # finish this off for installing wp and setup
+fi
