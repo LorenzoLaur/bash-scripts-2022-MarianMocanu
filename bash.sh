@@ -1,4 +1,15 @@
 # Marian Mocanu 1025277
+# Declaring a function to check the system usage
+function SystemUsage(){
+    cpu=$(top -bn1 | grep load | awk '{printf "%.2f%%\t\t", $(NF-2)');
+    ram=$(free -m | awk '{printf "%.2f%%\t\t", $3*100/$2}' );
+    disk=$(df -h | awk '$NF=="/"{printf "%s\t\t", $5}');
+
+     echo -e "VM Useage
+    CPU: $cpu
+    RAM: $ram
+    DISK: $disk";
+}
 # Checking if something has been passed on, if it's not then it will run the if statement 
 if [ $# -eq 0  ]; then
     echo -e "Usage $0 [command]";
@@ -22,12 +33,12 @@ if [ $1 = "system-update"]; then
 fi
 # Checking if something has been passed on, if "firewall" has been passed it will run the if statement
 if [ $1 = "firewall" ]; then
-    # checking if 2nd var is passed to firewall, if not echo error
+    # Checking if 2nd var is passed to firewall, if not echo error
     if [ -z "$2" ]; then
         echo -e "Must specify if you want to [add] or [remove] a port";
     fi
 
-    # checking if 3rd var is passed to firewall, if not echo error
+    # Checking if 3rd var is passed to firewall, if not echo error
     if [ -z "$3" ]; then
         echo -e "Must include a port";
     fi
@@ -44,16 +55,9 @@ if [ $1 = "firewall" ]; then
         echo -e "Port $3 removed from firwall";
     fi
 fi
-# Checking if something has been passed on, if "system-stats" has been passed it will run the if statement
+# Checking if something has been passed on, if "system-stats" has been passed it will run the if statement and call the function declared at the beggining
 if [ $1 = "system-stats"]; then
-    cpu=$(top -bn1 | grep load | awk '{printf "%.2f%%\t\t", $(NF-2)');
-    ram=$(free -m | awk '{printf "%.2f%%\t\t", $3*100/$2}' );
-    disk=$(df -h | awk '$NF=="/"{printf "%s\t\t", $5}');
-
-    echo -e "VM Useage
-    CPU: $cpu
-    RAM: $ram
-    DISK: $disk";
+    SystemUsage
 fi
 # Checking if something has been passed on, if "setup-wp" has been passed it will run the if statement
 if [ $1 = "setup-wp" ]; then
