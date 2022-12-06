@@ -69,7 +69,9 @@ if [ $1 = "system-stats" ]; then
     exit 0
 fi
 # Checking if something has been passed on, if "setup-wp" has been passed it will run the if statement
-if [ $1 = "setup-wp" ]; then
+if [ $1 = "setup-nginx" ]; then
+    echo -e "whats your domain name? ('localhost' if you dont have one and want to run it on inside your network)"
+    read -p "Domain (example.com): " domain
     # Installing Nginx
     sudo apt-get install nginx -y
     wait
@@ -80,7 +82,7 @@ if [ $1 = "setup-wp" ]; then
     systemctl enable mariadb.service -y
     wait
     # Installing PHP 
-    sudo apt-get install php7 php7-cli php7-fpm php7-mysql php7-json php7-opcache php7-mbstring php7-xml php7-gd php7-curl -y
+    sudo apt-get install php7.2 php7.2-cli php7.2-fpm php7.2-mysql php7.2-json php7.2-opcache php7.2-mbstring php7.2-xml php7.2-gd php7.2-curl -y
     wait
     echo -e "** MAKE NOT OF YOUR ROOT PASSWORD ON THIS NEXT PART! **"
     wait
@@ -123,7 +125,7 @@ if [ $1 = "setup-wp" ]; then
 
             location ~ \.php$ {
                 include snippets/fastcgi-php.conf;
-                fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+                fastcgi_pass unix:/run/php/php7.2.2-fpm.sock;
             }
 
             location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
