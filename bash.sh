@@ -1,4 +1,4 @@
-# Marian Mocanu 105277
+# Marian Mocanu 1025277
 
 if [ $# -eq 0  ]; then
     echo -e "Usage $0 [command]";
