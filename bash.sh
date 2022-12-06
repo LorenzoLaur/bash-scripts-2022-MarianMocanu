@@ -16,13 +16,14 @@ if [ $# -eq 0  ]; then
     echo -e "Commands:";
     echo -e "  help - gives list of commands you can run";
 fi
+
 # Checking if something has been passed on, if "help" has been passed it will run the if statement 
 if [ $1 = "help" ]; then
     echo -e "   add-user - create a user";
     echo -e "   firewall - add or remove a firewall port"; 
     echo -e "   update-system - update system";
     echo -e "   setup-wp - installs apts neeeded for wp";
-    echo -e "   create-user - creates a user"
+    echo -e "   create-user - creates a user";
 fi
 # Checking if something has been passed on, if "system-update" has been passed it will run the if statement
 if [ $1 = "system-update"]; then
