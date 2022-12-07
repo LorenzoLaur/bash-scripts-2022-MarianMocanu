@@ -71,13 +71,12 @@ fi
 # Checking if something has been passed on, if "setup-wp" has been passed it will run the if statement
 if [ $1 = "setup-nginx" ]; then
     # check if install-wp.sh is executable, if not make it executable
-    if [ ! -x install-wp.sh ]; then
+    if [ ! -x install-nginx.sh ]; then
         echo -e "wordpress isnt an executable, lets make it one!"
-        chmod +x install-wp.sh
+        chmod +x install-nginx.sh
         wait
     fi
-    # run the install-wp.sh script
-    ./install-wp.sh -x
+    ./install-nginx.sh -x
     wait
     echo "All done!"
     exit 0
