@@ -72,6 +72,13 @@ fi
 if [ $1 = "setup-nginx" ]; then
     echo -e "whats your domain name? ('localhost' if you dont have one and want to run it on inside your network)"
     read -p "Domain (example.com): " domain
+    wait
+    # adding php repository
+    sudo apt-add-repository ppa:ondrej/php
+    wait
+    # updating so apt-get can find php packages needed
+    sudo apt update
+    wait
     # Installing Nginx
     sudo apt-get install nginx -y
     wait
