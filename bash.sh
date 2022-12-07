@@ -74,10 +74,10 @@ if [ $1 = "setup-nginx" ]; then
     read -p "Domain (example.com): " domain
     wait
     # adding php repository
-    sudo apt-add-repository ppa:ondrej/php
+    sudo apt-add-repository ppa:ondrej/php -y
     wait
     # updating so apt-get can find php packages needed
-    sudo apt update
+    sudo apt update -y
     wait
     # Installing Nginx
     sudo apt-get install nginx -y
