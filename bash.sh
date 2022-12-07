@@ -1,4 +1,5 @@
 # Marian Mocanu 1025277
+
 # Declaring a function to check the system usage
 function SystemUsage(){
     cpu=$(top -bn1 | grep load | awk '{printf "%.2f%%\t\t", $(NF-2)}')
@@ -44,6 +45,8 @@ if [ $1 = "firewall" ]; then
         echo -e "You must include an add or remove"
         exit 1
     fi
+
+    # Checking if 3rd var is passed to firewall, if not echo error
     if [ -z "$3" ]; then
         echo -e "You must include an port"
         exit 1
@@ -70,7 +73,7 @@ if [ $1 = "system-stats" ]; then
 fi
 # Checking if something has been passed on, if "setup-wp" has been passed it will run the if statement
 if [ $1 = "setup-nginx" ]; then
-    # check if install-wp.sh is executable, if not make it executable
+    # check if install-nginx.sh is executable, if not is making it executable
     if [ ! -x install-nginx.sh ]; then
         echo -e "wordpress isnt an executable, lets make it one!"
         chmod +x install-nginx.sh
